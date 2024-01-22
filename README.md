@@ -8,10 +8,12 @@ This project will include the following:
 3. Model Training, tuning and evaluation
 4. Installation steps
 5. Running predictions locally
-6. Model deployment and test with Flask
-7. Dependency and enviroment management
-8. Containerization
-9. AWS deploy The idea is to apply everything learned so far.
+6. Model deployment and test with Flask and Containerization
+7. AWS Ddeployment
+   1. Upload docker image to ECR
+   2. Create Lambda function
+   3. Create API Gateway service
+8. AWS deploy The idea is to apply everything learned so far.
 
 ##Problem Description
 Primary goal of the project is the ability to predict the price trend change for trading data based on the trading dataset and calculated indexes and features. This would be helpful in predicting whether to buy or sell items in portfolio basing on the market situation and upcoming trends.
@@ -86,4 +88,51 @@ Don't forget to copy repositoryUri value to be able to continue.
 
 ##Create AWS Lambda function
 1. Go to the Lambda service in the AWS Management Console and choose 'Create function'.
+[Lambda Create](images/lambda_create.png)
+2. Select the 'Container image' option, provide a name for your Lambda function and choose the Docker image you uploaded to ECR as the container image.
+3. If there is an error, configure any additional settings such as memory (1024), timeout (1 minute) :
+4. Test the function once created by selecting the `Test` tab and providing the following imput
+```{
+  "date": "2023-12-27",
+  "open": 42518.46875,
+  "high": 43683.160156,
+  "low": 42167.582031,
+  "close": 43442.855469,
+  "adj_close": 43442.855469,
+  "volume": 25260941032,
+  "price_change": 922.453125,
+  "rsi": 52.953577,
+  "is_bull": "true",
+  "overbought": "false",
+  "oversold": "false"
+}
+```
+[Lambda Test](images/lambda_create.png)
 
+##Create API Gateway Service
+1. Navigate to API Gateway service, then click on Create, if this is your first API you will be reditected to nex step Choose an API type:
+[Add API](images/create_gatewayAPI.png)
+2. Select `REST API` -> `Build` -> `New API`. Add API name and press `Create API`
+3. Once API is created, add a new resource by clicking on Create resource `Create Resource`
+4. In resource details specify `predict` in resource name
+5. Once endpoint is added select it and press `Create Method`
+[Add Methd](images/create_method.png)
+6. Select from dropdown Method Type - POST, integration type - Lambda function and press `Create Method`
+7. Select newly created POST method and go to the `Test` tab
+8. Add the following in the `Request Body` section and press test 
+```{
+  "date": "2023-12-27",
+  "open": 42518.46875,
+  "high": 43683.160156,
+  "low": 42167.582031,
+  "close": 43442.855469,
+  "adj_close": 43442.855469,
+  "volume": 25260941032,
+  "price_change": 922.453125,
+  "rsi": 52.953577,
+  "is_bull": "true",
+  "overbought": "false",
+  "oversold": "false"
+}
+```
+[API Gateway Test](images/API_TEST.png)
