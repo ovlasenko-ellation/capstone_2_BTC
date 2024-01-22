@@ -71,16 +71,16 @@ Here are the steps:
 ##Creating Docker image for ECR
 1. Use the original Dockerfile from the project
 2. Run the command to build docker 
-`docker build . -t "btc_price_trend_predictor"` 
+```docker build . -t "btc_price_trend_predictor"```
 3. Create a new repository in Amazon ECR via the AWS Management Console.
-`$ aws ecr create-repository --repository-name <repository-name>`
+```$ aws ecr create-repository --repository-name <repository-name>```
 Don't forget to copy repositoryUri value to be able to continue.
 4. Authenticate your Docker client to the Amazon ECR registry you just created.
-`$(aws ecr get-login --no-include-email)`
+```$(aws ecr get-login --no-include-email)```
 5. Tag the docker image with repositoryUri
-`docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction`
+```docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction```
 6. Push the image to ECR
-`docker push <repositoryUri>:btc_prediction_xgb_model`
+```docker push <repositoryUri>:btc_prediction_xgb_model```
 7. Log in to AWS colsole -> Amazon ECR and you will be able to see it added
 ![ECR](images/ECR.png)
 
