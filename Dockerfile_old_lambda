@@ -1,0 +1,31 @@
+FROM python:3.11.5-slim
+
+COPY ["requirements.txt", "./"]
+RUN pip install -r requirements.txt
+
+COPY ["model_new.bin", "./"]
+COPY ["dict_vectorizer.pickle", "./"]
+COPY ["predict_lambda.py", "./"]
+
+ENV LAMBDA_HANDLER=predict_lambda.lambda_handler
+
+CMD [ "predict_lambda.lambda_handler" ]
+
+
+#FROM python:3.11.5-slim
+#
+#WORKDIR /app
+#COPY ["requirements.txt", "./"]
+#RUN pip install -r requirements.txt
+#
+#COPY ["model_new.bin", "./"]
+#COPY ["dict_vectorizer.pickle", "./"]
+#
+#COPY ["predict_lambda.py", "./"]
+#EXPOSE 9696
+#
+## Set an environment variable to determine the command
+#ENV ENTRY_TYPE flask
+#
+## Conditional command based on the environment variable
+#CMD [ "sh", "-c", "if [ \"$ENTRY_TYPE\" = \"flask\" ]; then gunicorn -b 0.0.0.0:9696 predict_lambda:app; else python -u predict_lambda.py; fi" ]

@@ -1,14 +1,12 @@
-import requests
 import json
-
-#response = requests.post(url, json=data)
-#result = response.json()
-#print(json.dumps(result, indent=1))
 
 import requests
 
 if __name__ == "__main__":
-    url = f"http://localhost:8080/predict"
+    #url = 'https://g72eqje1bk.execute-api.us-west-2.amazonaws.com/STAGE/predict'
+
+    url = f"http://localhost:8080/predict"    #DOCKET URL
+    #url = "http://127.0.0.1:9696/predict"    #local host
 
     input = {
         "date": "2023-12-27",

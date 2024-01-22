@@ -1,11 +1,15 @@
-FROM python:3.11.5-slim
+FROM public.ecr.aws/lambda/python:3.12
 
-WORKDIR /app
-COPY ["requirements.txt", "./"]
+# Copy requirements.txt
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
+
+# Install the specified packages
 RUN pip install -r requirements.txt
 
-COPY ["model.bin", "./"]
+# Copy function code
+COPY predict_lambda.py ${LAMBDA_TASK_ROOT}
+COPY model_new.bin ${LAMBDA_TASK_ROOT}
+COPY dict_vectorizer.pickle ${LAMBDA_TASK_ROOT}
 
-COPY ["predict.py", "./"]
-EXPOSE 9696
-ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:9696", "predict:app"]
+# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+CMD [ "predict_lambda.lambda_handler" ]
