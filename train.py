@@ -12,7 +12,7 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import xgboost as xgb
 
 
-data = 'https://github.com/ovlasenko-ellation/capstone_2_BTC/raw/main/BTC-USD_daily.csv'
+data = 'https://github.com/ovlasenko-ellation/capstone_2_BTC/raw/main/Data_input/BTC-USD_daily.csv'
 
 btc = pd.read_csv(data)
 btc.columns = btc.columns.str.lower().str.replace(' ', '_')
