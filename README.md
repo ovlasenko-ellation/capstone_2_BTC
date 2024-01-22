@@ -42,10 +42,14 @@ XGBoost showed better perfromance on the full_train dataset, thus it was selecte
 
 ##Installation steps
 1. Clone the repository
-`$ git clone git@github.com:ovlasenko-ellation/capstone_2_BTC.git`
+```
+$ git clone git@github.com:ovlasenko-ellation/capstone_2_BTC.git
+```
 2. Active venv virtual environemnt
-`python3 -m venv venv`
-`source venv/bin/activate`
+```
+python3 -m venv venv`
+source venv/bin/activate
+```
 3. Install required dependencies
 `$ pip install -r requirements.txt`
 
@@ -61,9 +65,13 @@ Containerzation can be done to test the model with the flask locally.
 Here are the steps:
 1. Rename Dockerfile_local to a Dockerfile (current version of Dockerfile contains lambda configuration
 2. Run the command to build docker 
-`docker build . -t "btc_price_trend_predictor"`
+```
+docker build . -t "btc_price_trend_predictor"
+```
 3. Run the docker 
-`docker run -p 8080:9696 btc_price_trend_predictor :latest`
+```
+docker run -p 8080:9696 btc_price_trend_predictor :latest
+```
 4. Update the url in input.py to the docker url (uncomment if commented and comment the others)
 5. In new terminal window run 
 `python input.py`
@@ -73,14 +81,22 @@ Here are the steps:
 ##Creating Docker image for ECR
 1. Use the original Dockerfile from the project
 2. Run the command to build docker 
-```docker build . -t "btc_price_trend_predictor"```
+```
+docker build . -t "btc_price_trend_predictor"
+```
 3. Create a new repository in Amazon ECR via the AWS Management Console.
-```$ aws ecr create-repository --repository-name <repository-name>```
+```
+$ aws ecr create-repository --repository-name <repository-name>
+```
 Don't forget to copy repositoryUri value to be able to continue.
 4. Authenticate your Docker client to the Amazon ECR registry you just created.
-```$(aws ecr get-login --no-include-email)```
+```
+$(aws ecr get-login --no-include-email)
+```
 5. Tag the docker image with repositoryUri
-```docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction```
+```
+docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
+```
 6. Push the image to ECR
 ```docker push <repositoryUri>:btc_prediction_xgb_model```
 7. Log in to AWS colsole -> Amazon ECR and you will be able to see it added
@@ -92,7 +108,8 @@ Don't forget to copy repositoryUri value to be able to continue.
 2. Select the 'Container image' option, provide a name for your Lambda function and choose the Docker image you uploaded to ECR as the container image.
 3. If there is an error, configure any additional settings such as memory (1024), timeout (1 minute) :
 4. Test the function once created by selecting the `Test` tab and providing the following imput
-```{
+```
+{
   "date": "2023-12-27",
   "open": 42518.46875,
   "high": 43683.160156,
@@ -120,7 +137,8 @@ Don't forget to copy repositoryUri value to be able to continue.
 6. Select from dropdown Method Type - POST, integration type - Lambda function and press `Create Method`
 7. Select newly created POST method and go to the `Test` tab
 8. Add the following in the `Request Body` section and press test 
-```{
+```
+{
   "date": "2023-12-27",
   "open": 42518.46875,
   "high": 43683.160156,
