@@ -104,7 +104,7 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 
 ##Create AWS Lambda function
 1. Go to the Lambda service in the AWS Management Console and choose 'Create function'.
-[Lambda Create](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_create.png)
+![Lambda Create](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_create.png)
 2. Select the 'Container image' option, provide a name for your Lambda function and choose the Docker image you uploaded to ECR as the container image.
 3. If there is an error, configure any additional settings such as memory (1024), timeout (1 minute) :
 4. Test the function once created by selecting the `Test` tab and providing the following input
