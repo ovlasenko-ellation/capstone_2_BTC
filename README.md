@@ -9,11 +9,11 @@ This project will include the following:
 4. Installation steps
 5. Running predictions locally
 6. Model deployment and test with Flask and Containerization
-7. AWS Ddeployment
+7. AWS Deployment
    1. Upload docker image to ECR
    2. Create Lambda function
    3. Create API Gateway service
-8. AWS deploy The idea is to apply everything learned so far.
+
 
 ##Problem Description
 Primary goal of the project is the ability to predict the price trend change for trading data based on the trading dataset and calculated indexes and features. This would be helpful in predicting whether to buy or sell items in portfolio basing on the market situation and upcoming trends.
@@ -30,22 +30,22 @@ For preparing data to analysis I did the following:
 5. Once all the analysis and data preparation were done I split the dataset into full_train and test, and then split full_train into train and validation datasets. Used a recommended split by period for the timeseries data
 
 ##Model Training, tuning and evaluation
-Since the goal for model is to predict whther the price will go up or down I used models for binary classification:
+Since the goal for model is to predict whether the price will go up or down I used models for binary classification:
 - LogisticRegression
 - RandomForest
 - XGBoost
 
-For validation purposes used accuracy, F1 score (balanced between preciosn and recall) and auc metrics.
+For validation purposes used accuracy, F1 score (balanced between precision and recall) and auc metrics.
 All models include parameter tuning and selection based on the optimal f1/auc/accuracy scores
 Since dataset is relatively small used KFold cross-validation for all models. 
-XGBoost showed better perfromance on the full_train dataset, thus it was selected as a main model.
+XGBoost showed better performance on the full_train dataset, thus it was selected as a main model.
 
 ##Installation steps
 1. Clone the repository
 ```
 $ git clone git@github.com:ovlasenko-ellation/capstone_2_BTC.git
 ```
-2. Active venv virtual environemnt
+2. Active venv virtual environment
 ```
 python3 -m venv venv`
 source venv/bin/activate
@@ -61,7 +61,7 @@ source venv/bin/activate
 
 ##Model deployment and test with Flask
 
-Containerzation can be done to test the model with the flask locally. 
+Containerization can be done to test the model with the flask locally. 
 Here are the steps:
 1. Rename Dockerfile_local to a Dockerfile (current version of Dockerfile contains lambda configuration
 2. Run the command to build docker 
@@ -99,15 +99,15 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 ```
 6. Push the image to ECR
 ```docker push <repositoryUri>:btc_prediction_xgb_model```
-7. Log in to AWS colsole -> Amazon ECR and you will be able to see it added
-![ECR](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/ECR.png)
+7. Log in to AWS console -> Amazon ECR and you will be able to see it added
+   ![ECR](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/ECR.png)
 
 ##Create AWS Lambda function
 1. Go to the Lambda service in the AWS Management Console and choose 'Create function'.
 [Lambda Create](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_create.png)
 2. Select the 'Container image' option, provide a name for your Lambda function and choose the Docker image you uploaded to ECR as the container image.
 3. If there is an error, configure any additional settings such as memory (1024), timeout (1 minute) :
-4. Test the function once created by selecting the `Test` tab and providing the following imput
+4. Test the function once created by selecting the `Test` tab and providing the following input
 ```
 {
   "date": "2023-12-27",
@@ -127,13 +127,13 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 [Lambda Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_test.png)
 
 ##Create API Gateway Service
-1. Navigate to API Gateway service, then click on Create, if this is your first API you will be reditected to nex step Choose an API type:
+1. Navigate to API Gateway service, then click on Create, if this is your first API you will be redirected to next step. Choose an API type:
 [Add API](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_gatewayAPI.png)
 2. Select `REST API` -> `Build` -> `New API`. Add API name and press `Create API`
 3. Once API is created, add a new resource by clicking on Create resource `Create Resource`
 4. In resource details specify `predict` in resource name
 5. Once endpoint is added select it and press `Create Method`
-[Add Methd](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_method.png)
+[Add Method](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_method.png)
 6. Select from dropdown Method Type - POST, integration type - Lambda function and press `Create Method`
 7. Select newly created POST method and go to the `Test` tab
 8. Add the following in the `Request Body` section and press test 
@@ -153,4 +153,4 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
   "oversold": "false"
 }
 ```
-[API Gateway Test](images/API_TEST.png)
+[API Gateway Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/API_TEST.png)
