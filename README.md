@@ -100,11 +100,11 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 6. Push the image to ECR
 ```docker push <repositoryUri>:btc_prediction_xgb_model```
 7. Log in to AWS colsole -> Amazon ECR and you will be able to see it added
-![ECR](images/ECR.png)
+![ECR](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/ECR.png)
 
 ##Create AWS Lambda function
 1. Go to the Lambda service in the AWS Management Console and choose 'Create function'.
-[Lambda Create](images/lambda_create.png)
+[Lambda Create](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_create.png)
 2. Select the 'Container image' option, provide a name for your Lambda function and choose the Docker image you uploaded to ECR as the container image.
 3. If there is an error, configure any additional settings such as memory (1024), timeout (1 minute) :
 4. Test the function once created by selecting the `Test` tab and providing the following imput
@@ -124,16 +124,16 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
   "oversold": "false"
 }
 ```
-[Lambda Test](images/lambda_create.png)
+[Lambda Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_test.png)
 
 ##Create API Gateway Service
 1. Navigate to API Gateway service, then click on Create, if this is your first API you will be reditected to nex step Choose an API type:
-[Add API](images/create_gatewayAPI.png)
+[Add API](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_gatewayAPI.png)
 2. Select `REST API` -> `Build` -> `New API`. Add API name and press `Create API`
 3. Once API is created, add a new resource by clicking on Create resource `Create Resource`
 4. In resource details specify `predict` in resource name
 5. Once endpoint is added select it and press `Create Method`
-[Add Methd](images/create_method.png)
+[Add Methd](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_method.png)
 6. Select from dropdown Method Type - POST, integration type - Lambda function and press `Create Method`
 7. Select newly created POST method and go to the `Test` tab
 8. Add the following in the `Request Body` section and press test 
