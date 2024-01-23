@@ -124,7 +124,7 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
   "oversold": "false"
 }
 ```
-[Lambda Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_test.png)
+![Lambda Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_test.png)
 
 ##Create API Gateway Service
 1. Navigate to API Gateway service, then click on Create, if this is your first API you will be redirected to next step. Choose an API type:
