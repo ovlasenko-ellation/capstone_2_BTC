@@ -128,12 +128,12 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 
 ##Create API Gateway Service
 1. Navigate to API Gateway service, then click on Create, if this is your first API you will be redirected to next step. Choose an API type:
-[Add API](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_gatewayAPI.png)
+![Add API](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_gatewayAPI.png)
 2. Select `REST API` -> `Build` -> `New API`. Add API name and press `Create API`
 3. Once API is created, add a new resource by clicking on Create resource `Create Resource`
 4. In resource details specify `predict` in resource name
 5. Once endpoint is added select it and press `Create Method`
-[Add Method](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_method.png)
+![Add Method](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_method.png)
 6. Select from dropdown Method Type - POST, integration type - Lambda function and press `Create Method`
 7. Select newly created POST method and go to the `Test` tab
 8. Add the following in the `Request Body` section and press test 
@@ -153,4 +153,4 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
   "oversold": "false"
 }
 ```
-[API Gateway Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/API_TEST.png)
+![API Gateway Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/API_TEST.png)
