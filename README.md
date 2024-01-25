@@ -1,6 +1,6 @@
 # Capstone-2 Project price change trend for trading data
 
-##Summary:
+## Summary:
 This project will include the following:
 
 1. Problem Description
@@ -15,13 +15,13 @@ This project will include the following:
    3. Create API Gateway service
 
 
-##Problem Description
+## Problem Description
 Primary goal of the project is the ability to predict the price trend change for trading data based on the trading dataset and calculated indexes and features. This would be helpful in predicting whether to buy or sell items in portfolio basing on the market situation and upcoming trends.
 
 Dataset is the daily market data for trades. The full dataset is available on [Kaggle](https://www.kaggle.com/datasets/spoorthiuk/crypto-market-data-2023?resource=download)
 Also a dataset from any open source can be used, such as [Yahoo](https://finance.yahoo.com/quote/BTC-USD/history?p=BTC-USD)
 
-##EDA and Dataset preparation
+## EDA and Dataset preparation
 For preparing data to analysis I did the following:
 1. Transformed columns into the lowercase and replaced spaces with underscored, checked for missing values
 2. Added new features for calculating the RSI index and price difference with previous and upcoming day, replace NaN values with 0
@@ -29,7 +29,7 @@ For preparing data to analysis I did the following:
 4. Checked feature correlation for numeric values
 5. Once all the analysis and data preparation were done I split the dataset into full_train and test, and then split full_train into train and validation datasets. Used a recommended split by period for the timeseries data
 
-##Model Training, tuning and evaluation
+## Model Training, tuning and evaluation
 Since the goal for model is to predict whether the price will go up or down I used models for binary classification:
 - LogisticRegression
 - RandomForest
@@ -40,7 +40,7 @@ All models include parameter tuning and selection based on the optimal f1/auc/ac
 Since dataset is relatively small used KFold cross-validation for all models. 
 XGBoost showed better performance on the full_train dataset, thus it was selected as a main model.
 
-##Installation steps
+## Installation steps
 1. Clone the repository
 ```
 $ git clone git@github.com:ovlasenko-ellation/capstone_2_BTC.git
@@ -53,13 +53,13 @@ source venv/bin/activate
 3. Install required dependencies
 `$ pip install -r requirements.txt`
 
-##To run project locally
+## To run project locally
 1. Run predict_lambda.py to launch the service  on a local server
 `python predict_lambda.py`
 2. In the input.py uncomment the local host url and comment the docket one and run in new terminal window 
 `python input.py`
 
-##Model deployment and test with Flask
+## Model deployment and test with Flask
 
 Containerization can be done to test the model with the flask locally. 
 Here are the steps:
@@ -76,9 +76,9 @@ docker run -p 8080:9696 btc_price_trend_predictor :latest
 5. In new terminal window run 
 `python input.py`
 
-##AWS Deployment
+## AWS Deployment
 
-##Creating Docker image for ECR
+## Creating Docker image for ECR
 1. Use the original Dockerfile from the project
 2. Run the command to build docker 
 ```
@@ -102,7 +102,7 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 7. Log in to AWS console -> Amazon ECR and you will be able to see it added
    ![ECR](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/ECR.png)
 
-##Create AWS Lambda function
+## Create AWS Lambda function
 1. Go to the Lambda service in the AWS Management Console and choose 'Create function'.
 ![Lambda Create](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_create.png)
 2. Select the 'Container image' option, provide a name for your Lambda function and choose the Docker image you uploaded to ECR as the container image.
@@ -126,7 +126,7 @@ docker tag btc_price_trend_predictor:latest <repositoryUri>:btc_prediction
 ```
 ![Lambda Test](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/lambda_test.png)
 
-##Create API Gateway Service
+## Create API Gateway Service
 1. Navigate to API Gateway service, then click on Create, if this is your first API you will be redirected to next step. Choose an API type:
 ![Add API](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/create_gatewayAPI.png)
 2. Select `REST API` -> `Build` -> `New API`. Add API name and press `Create API`
