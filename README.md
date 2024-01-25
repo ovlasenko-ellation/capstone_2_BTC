@@ -75,6 +75,7 @@ docker run -p 8080:9696 btc_price_trend_predictor :latest
 4. Update the url in input.py to the docker url (uncomment if commented and comment the others)
 5. In new terminal window run 
 `python input.py`
+![Docker](https://github.com/ovlasenko-ellation/capstone_2_BTC/blob/main/Images/Docker_local.png)
 
 ## AWS Deployment
 
